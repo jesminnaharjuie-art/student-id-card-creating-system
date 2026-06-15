@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Custom button styles */
+.btn-primary {
+  @apply bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors;
+}
+
+.btn-danger {
+  @apply bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white rounded-lg shadow-md p-6;
+}
+
+.card-hover {
+  @apply card hover:shadow-lg transition-shadow cursor-pointer;
+}
+
+/* Input styles */
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='number'],
+input[type='date'],
+textarea,
+select {
+  @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600;
+}
+
+textarea {
+  @apply resize-vertical;
+}
+
+/* Loading animation */
+.spinner {
+  border: 4px solid #f3f4f6;
+  border-top: 4px solid #2563eb;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Alert styles */
+.alert {
+  @apply p-4 rounded-lg mb-4;
+}
+
+.alert-success {
+  @apply bg-green-100 text-green-700 border border-green-300;
+}
+
+.alert-error {
+  @apply bg-red-100 text-red-700 border border-red-300;
+}
+
+.alert-warning {
+  @apply bg-yellow-100 text-yellow-700 border border-yellow-300;
+}
+
+.alert-info {
+  @apply bg-blue-100 text-blue-700 border border-blue-300;
+}

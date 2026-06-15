@@ -1,0 +1,65 @@
+services:
+  # Backend Service (FastAPI)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sims-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./sims.db
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-in-production}
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=1440
+    volumes:
+      - ./backend:/app
+      - backend_uploads:/app/uploads
+    command: python app.py
+    networks:
+      - sims-network
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  # Frontend Service (React + Vite)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sims-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev
+    networks:
+      - sims-network
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # Database Service (Optional - for data persistence)
+  db:
+    image: alpine:latest
+    container_name: sims-db
+    volumes:
+      - db_data:/data
+    networks:
+      - sims-network
+    restart: unless-stopped
+
+# Volumes
+volumes:
+  backend_uploads:
+    driver: local
+  db_data:
+    driver: local
+
+# Networks
+networks:
+  sims-network:
+    driver: bridge
